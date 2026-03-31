@@ -1,0 +1,12 @@
+Feature: SauceDemo Checkout
+
+  Background:
+    Given the user is logged in as "standard_user" with password "secret_sauce"
+    And they add the first product to the cart
+    And they navigate to the cart
+    And they proceed to checkout
+
+  Scenario: TC-09 Checkout with empty form shows required field error
+    When they fill in the checkout form with first name "", last name "", and postal code ""
+    Then a checkout error is displayed
+    And the checkout error contains "First Name is required"

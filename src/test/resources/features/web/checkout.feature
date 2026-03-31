@@ -10,3 +10,8 @@ Feature: SauceDemo Checkout
     When they fill in the checkout form with first name "", last name "", and postal code ""
     Then a checkout error is displayed
     And the checkout error contains "First Name is required"
+
+  Scenario: TC-10 Checkout with missing last name shows required field error
+    When they fill in the checkout form with first name "Juan", last name "", and postal code "0901"
+    Then a checkout error is displayed
+    And the checkout error contains "Last Name is required"

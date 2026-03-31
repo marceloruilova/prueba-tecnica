@@ -1,11 +1,13 @@
 package com.marcelo.steps;
 
 import com.marcelo.screenplay.questions.CartBadgeCount;
+import com.marcelo.screenplay.questions.CartContainsItems;
 import com.marcelo.screenplay.questions.RemoveButtonIsVisible;
 import com.marcelo.screenplay.tasks.AddProductToCart;
 import com.marcelo.screenplay.tasks.GoToCart;
 import com.marcelo.screenplay.tasks.Login;
 import com.marcelo.screenplay.tasks.NavigateTo;
+import com.marcelo.screenplay.tasks.RefreshPage;
 import com.marcelo.screenplay.ui.LoginPage;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -75,6 +77,28 @@ public class CartStepDefinitions {
     public void theyNavigateToTheCart() {
         OnStage.theActorInTheSpotlight().attemptsTo(
             GoToCart.now()
+        );
+    }
+
+    /**
+     * TC-08: Reloads the current page to test state persistence.
+     */
+    @When("they refresh the page")
+    public void theyRefreshThePage() {
+        OnStage.theActorInTheSpotlight().attemptsTo(
+            RefreshPage.now()
+        );
+    }
+
+    /**
+     * TC-08: Verifies at least one item is present in the cart after refresh.
+     */
+    @Then("the cart still contains the product")
+    public void theCartStillContainsTheProduct() {
+        OnStage.theActorInTheSpotlight().should(
+            seeThat("the cart still contains the product",
+                CartContainsItems.onPage(),
+                is(true))
         );
     }
 }

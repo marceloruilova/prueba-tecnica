@@ -3,12 +3,13 @@ package com.marcelo.screenplay.tasks;
 import com.marcelo.screenplay.ui.CartPage;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Task;
-import net.serenitybdd.screenplay.actions.Click;
 
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
 /**
- * Screenplay Task: clicks the cart icon to open the shopping cart page.
+ * Screenplay Task: navigates directly to the shopping cart page.
+ * Uses driver.get() for reliable navigation instead of clicking the cart icon,
+ * which can fail to trigger React Router navigation in some Chrome configurations.
  */
 public class GoToCart implements Task {
 
@@ -19,7 +20,7 @@ public class GoToCart implements Task {
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
-            Click.on(CartPage.CART_LINK)
+            NavigateTo.thePage(CartPage.URL)
         );
     }
 }

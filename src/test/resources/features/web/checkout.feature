@@ -15,3 +15,9 @@ Feature: SauceDemo Checkout
     When they fill in the checkout form with first name "Juan", last name "", and postal code "0901"
     Then a checkout error is displayed
     And the checkout error contains "Last Name is required"
+
+  Scenario: TC-11 Complete checkout shows order confirmation
+    When they fill in the checkout form with first name "Juan", last name "Perez", and postal code "0901"
+    And they complete the order
+    Then the order confirmation is displayed
+    And the confirmation message says "Thank you for your order"

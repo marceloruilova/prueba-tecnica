@@ -7,6 +7,8 @@ import net.serenitybdd.screenplay.targets.Target;
  */
 public class CartPage {
 
+    public static final String URL = "https://www.saucedemo.com/cart.html";
+
     public static final Target CART_BADGE =
             Target.the("cart badge").locatedBy(".shopping_cart_badge");
 

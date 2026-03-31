@@ -183,7 +183,7 @@
                     <includes>
                         <include>**/acceptancetests/*.java</include>
                     </includes>
-                    <argLine>-Xmx512m</argLine>
+                    <argLine>-Xmx512m --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED</argLine>
                 </configuration>
                 <executions>
                     <execution>

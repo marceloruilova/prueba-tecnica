@@ -11,3 +11,9 @@ Feature: SauceDemo Login Failures
     Examples:
       | description          | username      | password       |
       | TC-02 Wrong password | standard_user | wrong_password |
+
+  Scenario: TC-03 Locked user is shown a locked-out error
+    When they log in with username "locked_out_user" and password "secret_sauce"
+    Then an error message is displayed
+    And the error message contains "Sorry, this user has been locked out"
+    And the URL still shows the login page

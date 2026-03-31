@@ -20,21 +20,22 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
 /**
- * Definiciones de pasos para TC-01: Login exitoso.
+ * Step definitions for TC-01: Successful Login.
  *
- * Usa OnlineCast (patrón Screenplay canónico de Serenity) en lugar de @Managed,
- * ya que @Managed solo se inyecta correctamente en clases que extienden ScenarioSteps.
- * OnlineCast conecta al Actor con el WebDriver gestionado internamente por Serenity.
+ * Uses OnlineCast (Serenity's canonical Screenplay setup) instead of @Managed,
+ * because @Managed WebDriver injection only works in classes that extend ScenarioSteps.
+ * OnlineCast wires the Actor to the WebDriver managed internally by Serenity
+ * (configured via serenity.properties).
  */
 public class LoginStepDefinitions {
 
     @Before
-    public void configurarEscenario() {
+    public void setUpStage() {
         OnStage.setTheStage(new OnlineCast());
     }
 
     @After
-    public void limpiarEscenario() {
+    public void tearDownStage() {
         OnStage.drawTheCurtain();
     }
 
@@ -43,12 +44,12 @@ public class LoginStepDefinitions {
     // -------------------------------------------------------------------------
 
     /**
-     * Abre el navegador y navega a la URL de SauceDemo.
-     * Valida implícitamente que la página de login carga.
+     * Opens Chrome and navigates to the SauceDemo base URL.
+     * Implicitly validates that the login page loads.
      */
-    @Given("que el usuario está en la página de login de SauceDemo")
-    public void queElUsuarioEstaEnLaPaginaDeLogin() {
-        OnStage.theActorCalled("Usuario").attemptsTo(
+    @Given("the user is on the SauceDemo login page")
+    public void theUserIsOnTheSauceDemoLoginPage() {
+        OnStage.theActorCalled("User").attemptsTo(
             NavigateTo.thePage(LoginPage.URL)
         );
     }
@@ -58,10 +59,10 @@ public class LoginStepDefinitions {
     // -------------------------------------------------------------------------
 
     /**
-     * Ingresa las credenciales en el formulario y hace clic en Login.
+     * Types the username and password into the login form and clicks the Login button.
      */
-    @When("inicia sesión con usuario {string} y contraseña {string}")
-    public void iniciaSesionConCredenciales(String username, String password) {
+    @When("they log in with username {string} and password {string}")
+    public void theyLogInWithCredentials(String username, String password) {
         OnStage.theActorInTheSpotlight().attemptsTo(
             Login.withCredentials(username, password)
         );
@@ -72,26 +73,26 @@ public class LoginStepDefinitions {
     // -------------------------------------------------------------------------
 
     /**
-     * Valida que la URL del navegador contiene el fragmento esperado (/inventory.html),
-     * confirmando la redirección post-login exitosa.
+     * Validates that the current browser URL contains the expected fragment (/inventory.html),
+     * confirming a successful post-login redirect.
      */
-    @Then("es redirigido a {string}")
-    public void esRedirigidoA(String expectedUrlFragment) {
+    @Then("they are redirected to {string}")
+    public void theyAreRedirectedTo(String expectedUrlFragment) {
         OnStage.theActorInTheSpotlight().should(
-            seeThat("la URL actual contiene '" + expectedUrlFragment + "'",
+            seeThat("the current URL contains '" + expectedUrlFragment + "'",
                 CurrentUrl.value(),
                 containsString(expectedUrlFragment))
         );
     }
 
     /**
-     * Valida que el contenedor .inventory_list existe en el DOM,
-     * confirmando que la página de inventario con productos cargó correctamente.
+     * Validates that the .inventory_list container is present in the DOM,
+     * confirming the product catalog page loaded correctly.
      */
-    @Then("el listado de productos es visible")
-    public void elListadoDeProductosEsVisible() {
+    @Then("the product list is visible")
+    public void theProductListIsVisible() {
         OnStage.theActorInTheSpotlight().should(
-            seeThat("el listado de productos está presente",
+            seeThat("the product list is present",
                 actor -> !BrowseTheWeb.as(actor).getDriver()
                     .findElements(By.cssSelector(".inventory_list"))
                     .isEmpty(),
@@ -100,13 +101,13 @@ public class LoginStepDefinitions {
     }
 
     /**
-     * Valida que el elemento [data-test='error'] NO existe en el DOM,
-     * confirmando que no se mostraron mensajes de error tras el login.
+     * Validates that the [data-test='error'] element does NOT exist in the DOM,
+     * confirming no error messages were shown after login.
      */
-    @Then("no hay mensajes de error en pantalla")
-    public void noHayMensajesDeErrorEnPantalla() {
+    @Then("no error messages are displayed")
+    public void noErrorMessagesAreDisplayed() {
         OnStage.theActorInTheSpotlight().should(
-            seeThat("no hay mensajes de error en pantalla",
+            seeThat("no error messages are displayed",
                 ErrorMessageIsVisible.onScreen(),
                 is(false))
         );

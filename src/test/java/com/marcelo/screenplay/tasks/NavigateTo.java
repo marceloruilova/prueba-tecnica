@@ -7,8 +7,8 @@ import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
 /**
- * Tarea Screenplay: navega a una URL usando el WebDriver gestionado por Serenity.
- * Equivalente al WebSteps.navigateTo() del proyecto, adaptado al patrón Screenplay.
+ * Screenplay Task: navigates to a URL using Serenity's managed WebDriver.
+ * Mirrors the existing WebSteps.navigateTo() pattern, adapted for Screenplay.
  */
 public class NavigateTo implements Task {
 

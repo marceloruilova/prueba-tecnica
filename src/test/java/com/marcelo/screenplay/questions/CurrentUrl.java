@@ -5,8 +5,8 @@ import net.serenitybdd.screenplay.Question;
 import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 
 /**
- * Pregunta Screenplay: devuelve la URL actual del navegador.
- * Usada para validar la redirección tras el login.
+ * Screenplay Question: returns the current browser URL.
+ * Used to validate the post-login redirect.
  */
 public class CurrentUrl implements Question<String> {
 

@@ -6,9 +6,9 @@ import net.serenitybdd.screenplay.abilities.BrowseTheWeb;
 import org.openqa.selenium.By;
 
 /**
- * Pregunta Screenplay: comprueba si hay algún mensaje de error visible en pantalla.
- * Usa findElements (en lugar de findElement) para evitar NoSuchElementException
- * cuando el elemento no existe; devuelve false en ese caso.
+ * Screenplay Question: checks whether an error message is visible on the login page.
+ * Uses findElements() instead of findElement() to safely return false
+ * when the element is absent, avoiding NoSuchElementException.
  */
 public class ErrorMessageIsVisible implements Question<Boolean> {
 

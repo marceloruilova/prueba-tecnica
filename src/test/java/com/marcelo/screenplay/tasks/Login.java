@@ -9,8 +9,8 @@ import net.serenitybdd.screenplay.actions.Enter;
 import static net.serenitybdd.screenplay.Tasks.instrumented;
 
 /**
- * Tarea Screenplay: ingresa credenciales y envía el formulario de login.
- * No incluye navegación; el actor debe estar ya en la página de login.
+ * Screenplay Task: types credentials into the login form and submits it.
+ * Does not handle navigation — the actor must already be on the login page.
  */
 public class Login implements Task {
 
@@ -22,7 +22,7 @@ public class Login implements Task {
         this.password = password;
     }
 
-    /** Factory method para uso fluido: Login.withCredentials("user", "pass") */
+    /** Factory method for fluent usage: Login.withCredentials("user", "pass") */
     public static Login withCredentials(String username, String password) {
         return instrumented(Login.class, username, password);
     }
